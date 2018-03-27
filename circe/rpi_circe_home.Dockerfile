@@ -48,3 +48,16 @@ ADD jupiter_config.ini /jupiter_config.ini
 ADD circe/start_home.sh /start.sh
 RUN chmod +x /start.sh
 RUN chmod +x /central_mongod
+
+# Add the task speficific configuration files
+ADD app_specific_files/network_monitoring_app/configuration.txt /configuration.txt
+# Add input files
+COPY  app_specific_files/network_monitoring_app/sample_input /sample_input
+
+WORKDIR /
+
+# tell the port number the container should expose
+EXPOSE 22 8888
+
+# run the command
+CMD ["./start.sh"]

@@ -37,11 +37,17 @@ def build_push_rpis_netr():
 def build_push_rpis_wave():
 	os.chdir(jupiter_config.WAVE_PATH)
 
-	os.system("sudo docker build -f home.Dockerfile . -t docker.io/anrg/rpi_wave_home:v0")
-	os.system("sudo docker push docker.io/anrg/rpi_wave_home:v0")
+	os.system("sudo docker build -f rpi_greedywave_home.Dockerfile . -t docker.io/anrg/rpi_greedywave_home:v0")
+	os.system("sudo docker push docker.io/anrg/rpi_greedywave_home:v0")
 	
-	os.system("sudo docker build -f worker.Dockerfile . -t docker.io/anrg/rpi_wave_worker:v0")
-	os.system("sudo docker push docker.io/anrg/rpi_wave_worker:v0")
+	os.system("sudo docker build -f rpi_greedywave_worker.Dockerfile . -t docker.io/anrg/rpi_greedywave_worker:v0")
+	os.system("sudo docker push docker.io/anrg/rpi_greedywave_worker:v0")
+
+	os.system("sudo docker build -f rpi_randomwave_home.Dockerfile . -t docker.io/anrg/rpi_randomwave_home:v0")
+	os.system("sudo docker push docker.io/anrg/rpi_randomwave_home:v0")
+	
+	os.system("sudo docker build -f rpi_randomwave_worker.Dockerfile . -t docker.io/anrg/rpi_randomwave_worker:v0")
+	os.system("sudo docker push docker.io/anrg/rpi_randomwave_worker:v0")
 
 if __name__ == '__main__':
 	build_push_rpis_circe()

@@ -1,4 +1,3 @@
-pandas
 paramiko
 scp
 monotonic
@@ -8,5 +7,4 @@ watchdog
 apscheduler
 pyinotify
 netifaces
-cryptography
 configparser

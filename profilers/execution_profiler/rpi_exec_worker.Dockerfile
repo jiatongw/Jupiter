@@ -1,18 +1,17 @@
-# Instructions copied from - https://hub.docker.com/_/python/
 FROM resin/armv7hf-debian
 
+RUN apt-get -yqq update
+
+RUN apt-get -yqq install python3-pip python3-dev libssl-dev libffi-dev
 RUN apt-get -yqq update && apt-get install -y --no-install-recommends apt-utils
-RUN apt-get -yqq install python3-pip python3-dev libssl-dev libffi-dev 
+RUN apt-get -yqq install python3-pip python3-dev libssl-dev libffi-dev
 RUN apt-get install -yqq openssh-client openssh-server bzip2 wget net-tools sshpass screen
 RUN apt-get install -y vim
 RUN apt-get install g++ make openmpi-bin libopenmpi-dev -y
 RUN apt-get install sudo -y
 RUN apt-get install iproute2 -y
 
-ADD circe/requirements.txt /requirements.txt
-
-RUN pip3 install -r requirements.txt
-RUN apt-get install python3-pandas
+RUN apt-get install -y openssh-server
 RUN echo 'root:PASSWORD' | chpasswd
 RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
@@ -24,33 +23,29 @@ RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
-RUN mkdir -p /centralized_scheduler/input
-RUN mkdir -p /centralized_scheduler/output
-RUN mkdir -p /centralized_scheduler/runtime
-ADD circe/monitor.py /centralized_scheduler/monitor.py
+ADD profilers/execution_profiler/requirements.txt /requirements.txt
+
+RUN pip3 install -r requirements.txt
+RUN apt-get install python3-pandas
+
 RUN mkdir -p /home/darpa/apps/data
 
-ADD circe/rt_profiler_data_update.py  /centralized_scheduler/rt_profiler_data_update.py
+ADD profilers/execution_profiler/profiler_worker.py /centralized_scheduler/profiler.py
 
-ADD jupiter_config.ini /jupiter_config.ini
-
-ADD circe/start_worker.sh /start.sh
-RUN chmod +x /start.sh
-
-## Install TASK specific needs. The hadoop is a requirement for the network profiler application
-RUN wget https://archive.apache.org/dist/hadoop/core/hadoop-2.8.1/hadoop-2.8.1.tar.gz -P ~/
-RUN tar -zxvf ~/hadoop-2.8.1.tar.gz -C ~/
+ADD profilers/execution_profiler/start_worker.sh /centralized_scheduler/start.sh
+ADD profilers/execution_profiler/keep_alive.py /centralized_scheduler/keep_alive.py
+ADD profilers/execution_profiler/get_files.py /centralized_scheduler/get_files.py
+ADD jupiter_config.ini /centralized_scheduler/jupiter_config.ini
 
 # IF YOU WANNA DEPLOY A DIFFERENT APPLICATION JUST CHANGE THIS LINE
 ADD app_specific_files/network_monitoring_app/scripts/ /centralized_scheduler/
+COPY app_specific_files/network_monitoring_app/sample_input /centralized_scheduler/sample_input
 
-WORKDIR /
+ADD app_specific_files/network_monitoring_app/configuration.txt /centralized_scheduler/DAG.txt
 
-# tell the port number the container should expose
-EXPOSE 22 57021
 
-# run the command
+WORKDIR /centralized_scheduler/
+
+EXPOSE 22 27017 8888
+
 CMD ["./start.sh"]
-
-
-

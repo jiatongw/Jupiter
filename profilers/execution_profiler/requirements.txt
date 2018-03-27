@@ -5,6 +5,5 @@ scp
 watchdog
 requests
 pyinotify
-pandas
 pymongo
 configparser
