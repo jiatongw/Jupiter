@@ -1,5 +1,5 @@
 # Instructions copied from - https://hub.docker.com/_/python/
-FROM ubuntu:16.04
+FROM resin/armv7hf-debian
 
 RUN apt-get -yqq update
 RUN apt-get -yqq install python3-pip python3-dev libssl-dev libffi-dev
@@ -8,12 +8,14 @@ ADD circe/requirements.txt /requirements.txt
 RUN apt-get -y install build-essential libssl-dev libffi-dev python-dev
 RUN pip3 install --upgrade pip
 RUN apt-get install -y sshpass nano 
+RUN pip install -U setuptools
 
 # Taken from quynh's network profiler
 RUN pip install cryptography
 
 
 RUN pip3 install -r requirements.txt
+RUN apt-get install python3-pandas
 RUN echo 'root:PASSWORD' | chpasswd
 RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
@@ -46,16 +48,3 @@ ADD jupiter_config.ini /jupiter_config.ini
 ADD circe/start_home.sh /start.sh
 RUN chmod +x /start.sh
 RUN chmod +x /central_mongod
-
-# Add the task speficific configuration files
-ADD app_specific_files/network_monitoring_app/configuration.txt /configuration.txt
-# Add input files
-COPY  app_specific_files/network_monitoring_app/sample_input /sample_input
-
-WORKDIR /
-
-# tell the port number the container should expose
-EXPOSE 22 8888
-
-# run the command
-CMD ["./start.sh"]

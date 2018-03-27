@@ -1,5 +1,5 @@
 # Instructions copied from - https://hub.docker.com/_/python/
-FROM ubuntu:16.04
+FROM resin/armv7hf-debian
 
 RUN apt-get -yqq update && apt-get install -y --no-install-recommends apt-utils
 RUN apt-get -yqq install python3-pip python3-dev libssl-dev libffi-dev 
@@ -9,13 +9,10 @@ RUN apt-get install g++ make openmpi-bin libopenmpi-dev -y
 RUN apt-get install sudo -y
 RUN apt-get install iproute2 -y
 
-## Install TASK specific needs. The hadoop is a requirement for the network profiler application
-RUN wget http://supergsego.com/apache/hadoop/common/hadoop-2.8.1/hadoop-2.8.1.tar.gz -P ~/
-RUN tar -zxvf ~/hadoop-2.8.1.tar.gz -C ~/
-
 ADD circe/requirements.txt /requirements.txt
 
 RUN pip3 install -r requirements.txt
+RUN apt-get install python3-pandas
 RUN echo 'root:PASSWORD' | chpasswd
 RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
@@ -40,14 +37,9 @@ ADD jupiter_config.ini /jupiter_config.ini
 ADD circe/start_worker.sh /start.sh
 RUN chmod +x /start.sh
 
-# IF YOU WANNA DEPLOY A DIFFERENT APPLICATION JUST CHANGE THIS LINE
-ADD app_specific_files/network_monitoring_app/scripts/ /centralized_scheduler/
+## Install TASK specific needs. The hadoop is a requirement for the network profiler application
+RUN wget https://archive.apache.org/dist/hadoop/core/hadoop-2.8.1/hadoop-2.8.1.tar.gz -P ~/
+RUN tar -zxvf ~/hadoop-2.8.1.tar.gz -C ~/
 
-WORKDIR /
 
-# tell the port number the container should expose
-EXPOSE 22 57021
-
-# run the command
-CMD ["./start.sh"]
 

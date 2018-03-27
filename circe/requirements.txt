@@ -3,7 +3,6 @@ paramiko
 netifaces
 scp
 pymongo
-pandas
 numpy
 flask
 configparser
