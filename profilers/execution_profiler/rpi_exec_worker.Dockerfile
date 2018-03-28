@@ -25,6 +25,8 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 
 ADD profilers/execution_profiler/requirements.txt /requirements.txt
 
+RUN pip3 install --upgrade pip
+RUN pip install -U setuptools
 RUN pip3 install -r requirements.txt
 RUN apt-get install python3-pandas
 

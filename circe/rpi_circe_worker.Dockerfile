@@ -11,6 +11,8 @@ RUN apt-get install iproute2 -y
 
 ADD circe/requirements.txt /requirements.txt
 
+RUN pip3 install --upgrade pip
+RUN pip install -U setuptools
 RUN pip3 install -r requirements.txt
 RUN apt-get install python3-pandas
 RUN echo 'root:PASSWORD' | chpasswd
