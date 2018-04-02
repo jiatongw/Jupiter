@@ -32,6 +32,9 @@ RUN mkdir -p /input
 RUN mkdir -p /output
 RUN mkdir -p /runtime
 
+# Add input files
+COPY  app_specific_files/network_monitoring_app/sample_input /sample_input
+
 # Add the mongodb scripts
 ADD circe/runtime_profiler_mongodb /central_mongod
 ADD circe/rt_profiler_update_mongo.py /run_update.py
@@ -40,17 +43,15 @@ ADD circe/readconfig.py /readconfig.py
 ADD circe/scheduler.py /scheduler.py
 ADD jupiter_config.py /jupiter_config.py
 
+# Add the task speficific configuration files
+ADD app_specific_files/network_monitoring_app/configuration.txt /configuration.txt
+
 ADD nodes.txt /nodes.txt
 ADD jupiter_config.ini /jupiter_config.ini
 
 ADD circe/start_home.sh /start.sh
 RUN chmod +x /start.sh
 RUN chmod +x /central_mongod
-
-# Add the task speficific configuration files
-ADD app_specific_files/network_monitoring_app/configuration.txt /configuration.txt
-# Add input files
-COPY  app_specific_files/network_monitoring_app/sample_input /sample_input
 
 WORKDIR /
 
