@@ -10,7 +10,7 @@ from dockerfile_parse import DockerfileParser
 
 template_heft ="""\
 # Instructions copied from - https://hub.docker.com/_/python/
-FROM ubuntu:16.04
+FROM FROM anrg/rpi_heft:v0
 
 # Install required libraries
 RUN apt-get update

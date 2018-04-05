@@ -3,7 +3,7 @@
 # **     Read license file in main directory for more details
 
 # Instructions copied from - https://hub.docker.com/_/python/
-FROM ubuntu:16.04
+FROM anrg/rpi_netr_home:v0
 
 # Install required libraries
 RUN apt-get update
@@ -14,7 +14,7 @@ RUN apt-get install -y openssh-server mongodb sshpass nano virtualenv supervisor
 
 # Install required python libraries
 ADD profilers/network_resource_profiler/home/requirements.txt /requirements.txt
-RUN pip3 install -r requirements.txt
+RUN pip3 install -r /requirements.txt
 
 
 # Authentication
@@ -24,6 +24,7 @@ RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/s
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
+RUN apt-get update
 
 # Prepare MongoDB
 RUN mkdir -p /mongodb/data

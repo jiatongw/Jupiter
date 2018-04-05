@@ -13,7 +13,7 @@ from dockerfile_parse import DockerfileParser
 
 template_home ="""\
 # Instructions copied from - https://hub.docker.com/_/python/
-FROM ubuntu:16.04
+FROM anrg/rpi_circe_home:v0
 
 RUN apt-get -yqq update
 RUN apt-get -yqq install python3-pip python3-dev libssl-dev libffi-dev
@@ -82,7 +82,7 @@ CMD ["./start.sh"]
 
 template_worker ="""\
 # Instructions copied from - https://hub.docker.com/_/python/
-FROM ubuntu:16.04
+FROM anrg/rpi_circe_worker:v0
 
 RUN apt-get -yqq update && apt-get install -y --no-install-recommends apt-utils
 RUN apt-get -yqq install python3-pip python3-dev libssl-dev libffi-dev 

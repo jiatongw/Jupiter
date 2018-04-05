@@ -1,5 +1,5 @@
 # Instructions copied from - https://hub.docker.com/_/python/
-FROM ubuntu:16.04
+FROM anrg/rpi_circe_home:v0
 
 RUN apt-get -yqq update
 RUN apt-get -yqq install python3-pip python3-dev libssl-dev libffi-dev

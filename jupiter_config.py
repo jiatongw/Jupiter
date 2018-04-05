@@ -71,10 +71,10 @@ def set_globals():
 	KUBECONFIG_PATH         = os.environ['KUBECONFIG']
 
 	# Namespaces
-	DEPLOYMENT_NAMESPACE    = 'johndoe-circe'
-	PROFILER_NAMESPACE      = 'johndoe-profiler'
-	MAPPER_NAMESPACE        = 'johndoe-mapper'
-	EXEC_NAMESPACE          = 'johndoe-exec'
+	DEPLOYMENT_NAMESPACE    = 'anrg-circe'
+	PROFILER_NAMESPACE      = 'anrg-profiler'
+	MAPPER_NAMESPACE        = 'anrg-mapper'
+	EXEC_NAMESPACE          = 'anrg-exec'
 
 	""" Node file path and first task information """
 	global HOME_NODE, HOME_CHILD
@@ -85,34 +85,34 @@ def set_globals():
 	"""CIRCE home and worker images"""
 	global HOME_IMAGE, WORKER_IMAGE
 
-	HOME_IMAGE              = 'docker.io/johndoe/circe_home:v1'
-	WORKER_IMAGE            = 'docker.io/johndoe/circe_worker:v1'
+	HOME_IMAGE              = 'docker.io/anrg/circe_home:arm1'
+	WORKER_IMAGE            = 'docker.io/anrg/circe_worker:arm1'
 
 	"""DRUPE home and worker images"""
 	global PROFILER_HOME_IMAGE, PROFILER_WORKER_IMAGE
 	
-	PROFILER_HOME_IMAGE     = 'docker.io/johndoe/profiler_home:v1'
-	PROFILER_WORKER_IMAGE   = 'docker.io/johndoe/profiler_worker:v1'
+	PROFILER_HOME_IMAGE     = 'docker.io/anrg/profiler_home:arm1'
+	PROFILER_WORKER_IMAGE   = 'docker.io/anrg/profiler_worker:arm1'
 
 	"""WAVE home and worker images"""
 	global WAVE_HOME_IMAGE, WAVE_WORKER_IMAGE
 
-	#v0: random, v1: greedy
+	#v0: random, arm1: greedy
 
-	WAVE_HOME_IMAGE         = 'docker.io/johndoe/wave_home:v1'
-	WAVE_WORKER_IMAGE       = 'docker.io/johndoe/wave_worker:v1'
+	WAVE_HOME_IMAGE         = 'docker.io/anrg/wave_home:arm1'
+	WAVE_WORKER_IMAGE       = 'docker.io/anrg/wave_worker:arm1'
 
 	"""Execution profiler home and worker images"""
 	global EXEC_HOME_IMAGE, EXEC_WORKER_IMAGE
 
 
-	EXEC_HOME_IMAGE         = 'docker.io/johndoe/exec_home:v1'
-	EXEC_WORKER_IMAGE       = 'docker.io/johndoe/exec_worker:v1'
+	EXEC_HOME_IMAGE         = 'docker.io/anrg/exec_home:arm1'
+	EXEC_WORKER_IMAGE       = 'docker.io/anrg/exec_worker:arm1'
 
 	"""HEFT docker image"""
 	global HEFT_IMAGE
 
-	HEFT_IMAGE              = 'docker.io/johndoe/heft:v1'
+	HEFT_IMAGE              = 'docker.io/anrg/heft:arm1'
 
 	"""Application Information"""
 	global APP_PATH, APP_NAME

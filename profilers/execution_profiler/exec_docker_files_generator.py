@@ -12,7 +12,7 @@ from dockerfile_parse import DockerfileParser
 ############################################ WORKER DOCKER TEMPLATE #########################################################
 
 template_worker ="""\
-FROM ubuntu:16.04
+FROM anrg/rpi_exec_worker:v0
 
 RUN apt-get -yqq update
 
@@ -39,7 +39,7 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 
 ADD profilers/execution_profiler/requirements.txt /requirements.txt
 
-RUN pip3 install -r requirements.txt
+RUN pip3 install -r /requirements.txt
 
 RUN mkdir -p /home/darpa/apps/data
 
@@ -74,7 +74,7 @@ template_home ="""\
 # **     Read license file in main directory for more details
 
 # Instructions copied from - https://hub.docker.com/_/python/
-FROM ubuntu:16.04
+FROM anrg/rpi_exec_home:v0
 
 # Install required libraries
 RUN apt-get -yqq update
@@ -93,7 +93,7 @@ RUN apt-get install -y openssh-server
 # Install required python libraries
 ADD profilers/execution_profiler/requirements.txt /requirements.txt
 
-RUN pip3 install -r requirements.txt
+RUN pip3 install -r /requirements.txt
 
 
 # Authentication

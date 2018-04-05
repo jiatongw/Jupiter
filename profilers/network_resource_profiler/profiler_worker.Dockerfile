@@ -3,10 +3,9 @@
 # **     Read license file in main directory for more details
 
 # Instructions copied from - https://hub.docker.com/_/python/
-FROM ubuntu:16.04
+FROM anrg/rpi_netr_worker:v0
 
 # Install required libraries
-RUN apt-get update
 RUN apt-get -y install build-essential libssl-dev libffi-dev python-dev
 RUN apt-get -yqq install python3-pip python3-dev
 RUN pip3 install --upgrade pip
@@ -14,7 +13,8 @@ RUN apt-get install -y openssh-server mongodb net-tools sshpass nano virtualenv 
 
 # Install required python libraries
 ADD profilers/network_resource_profiler/worker/requirements.txt /requirements.txt
-RUN pip3 install -r requirements.txt
+RUN pip3 install -r /requirements.txt
+RUN apt-get update
 
 
 # Authentication
