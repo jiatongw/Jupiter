@@ -11,8 +11,8 @@ RUN apt-get install -y vim
 
 # Install required python libraries
 ADD task_mapper/heft/requirements.txt /requirements.txt
-RUN pip3 install -r requirements.txt
-RUN pip2 install -r requirements.txt
+RUN pip3 install -r /requirements.txt
+RUN pip2 install -r /requirements.txt
 
 
 # Authentication
