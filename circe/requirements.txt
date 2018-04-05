@@ -2,7 +2,7 @@ watchdog
 paramiko
 netifaces
 scp
-pymongo
+pymongo==2.4.2
 pandas
 numpy
 flask

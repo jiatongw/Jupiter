@@ -10,7 +10,7 @@ from dockerfile_parse import DockerfileParser
 
 template_heft ="""\
 # Instructions copied from - https://hub.docker.com/_/python/
-FROM FROM anrg/rpi_heft:v0
+FROM anrg/rpi_heft:v0
 
 # Install required libraries
 RUN apt-get update
@@ -29,6 +29,9 @@ RUN pip2 install -r requirements.txt
 # Authentication
 RUN echo '{username}:{password}' | chpasswd
 RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed -i 's/#PermitRootLogin yes/PermitRootLogin yes/' /etc/ssh/sshd_config
+
 # SSH login fix. Otherwise user is kicked off after login
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 ENV NOTVISIBLE "in users profile"
