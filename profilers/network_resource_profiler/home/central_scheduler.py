@@ -110,8 +110,7 @@ def main():
     client_mongo = MongoClient('mongodb://localhost:' + str(MONGO_DOCKER) + '/')
     db = client_mongo['central_network_profiler']
     buffer_size = len(df_links.index) * 100
-    db.create_collection('quadratic_parameters', capped = True,
-                                 size = 100000, max = buffer_size)
+    db.create_collection('quadratic_parameters', capped = True, size = 100000, max = buffer_size)
 
     print('Step 2: Preparing the scheduling text files')
     for cur_node, row in df_nodes.iterrows():
