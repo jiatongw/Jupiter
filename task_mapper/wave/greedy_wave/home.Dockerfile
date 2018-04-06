@@ -1,11 +1,11 @@
-FROM python:3.5
+FROM anrg/arm_python_base
 RUN pip install flask
 
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
 ADD home/requirements.txt /requirements.txt
-RUN pip3 install -r requirements.txt
+RUN pip3 install -r /requirements.txt
 
 COPY home/master_greedy.py /master.py
 

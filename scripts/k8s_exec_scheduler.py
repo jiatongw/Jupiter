@@ -97,8 +97,12 @@ def k8s_exec_scheduler():
     """
         This script deploys execution profiler in the system. 
     """
-
     jupiter_config.set_globals()
+    configs = json.load(open(jupiter_config.APP_PATH+ 'scripts/config.json'))
+    taskmap = configs["taskname_map"]
+
+    path1 = jupiter_config.APP_PATH + 'configuration.txt'
+    path2 = jupiter_config.HERE + 'nodes.txt'
 
     dag_info = k8s_read_dag(path1)
 
@@ -181,7 +185,6 @@ def k8s_exec_scheduler():
     all_node = ':'.join(service_ips.keys())
     print(all_node)
 
-    path2 = jupiter_config.HERE + 'nodes.txt'
     nodes = k8s_get_nodes(path2)
     allprofiler_ips =''
     allprofiler_names = ''
@@ -328,12 +331,4 @@ def k8s_exec_scheduler():
     return(service_ips)
 
 if __name__ == '__main__':
-    
-    jupiter_config.set_globals()
-    configs = json.load(open(jupiter_config.APP_PATH+ 'scripts/config.json'))
-    taskmap = configs["taskname_map"]
-
-    path1 = jupiter_config.APP_PATH + 'configuration.txt'
-    path2 = jupiter_config.HERE + 'nodes.txt'
-
     k8s_exec_scheduler()
