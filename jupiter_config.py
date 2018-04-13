@@ -85,34 +85,34 @@ def set_globals():
 	"""CIRCE home and worker images"""
 	global HOME_IMAGE, WORKER_IMAGE
 
-	HOME_IMAGE              = 'docker.io/anrg/circe_home:arm1'
-	WORKER_IMAGE            = 'docker.io/anrg/circe_worker:arm1'
+	HOME_IMAGE              = 'docker.io/anrg/circe_home:arm2'
+	WORKER_IMAGE            = 'docker.io/anrg/circe_worker:arm2'
 
 	"""DRUPE home and worker images"""
 	global PROFILER_HOME_IMAGE, PROFILER_WORKER_IMAGE
 	
-	PROFILER_HOME_IMAGE     = 'docker.io/anrg/profiler_home:arm1'
-	PROFILER_WORKER_IMAGE   = 'docker.io/anrg/profiler_worker:arm1'
+	PROFILER_HOME_IMAGE     = 'docker.io/anrg/profiler_home:arm2'
+	PROFILER_WORKER_IMAGE   = 'docker.io/anrg/profiler_worker:arm2'
 
 	"""WAVE home and worker images"""
 	global WAVE_HOME_IMAGE, WAVE_WORKER_IMAGE
 
-	#v0: random, arm1: greedy
+	#v0: random, arm2: greedy
 
-	WAVE_HOME_IMAGE         = 'docker.io/anrg/wave_home:arm1'
-	WAVE_WORKER_IMAGE       = 'docker.io/anrg/wave_worker:arm1'
+	WAVE_HOME_IMAGE         = 'docker.io/anrg/wave_home:arm2'
+	WAVE_WORKER_IMAGE       = 'docker.io/anrg/wave_worker:arm2'
 
 	"""Execution profiler home and worker images"""
 	global EXEC_HOME_IMAGE, EXEC_WORKER_IMAGE
 
 
-	EXEC_HOME_IMAGE         = 'docker.io/anrg/exec_home:arm1'
-	EXEC_WORKER_IMAGE       = 'docker.io/anrg/exec_worker:arm1'
+	EXEC_HOME_IMAGE         = 'docker.io/anrg/exec_home:arm2'
+	EXEC_WORKER_IMAGE       = 'docker.io/anrg/exec_worker:arm2'
 
 	"""HEFT docker image"""
 	global HEFT_IMAGE
 
-	HEFT_IMAGE              = 'docker.io/anrg/heft:arm1'
+	HEFT_IMAGE              = 'docker.io/anrg/heft:arm2'
 
 	"""Application Information"""
 	global APP_PATH, APP_NAME

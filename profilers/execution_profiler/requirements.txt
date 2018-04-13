@@ -6,5 +6,5 @@ watchdog
 requests
 pyinotify
 pandas
-pymongo==2.4.2
+pymongo
 configparser

@@ -5,12 +5,13 @@
 # Instructions copied from - https://hub.docker.com/_/python/
 FROM anrg/rpi_netr_home:v0
 
+RUN apt-get update && apt-get upgrade -y
 # Install required libraries
 RUN apt-get update
 RUN apt-get -y install build-essential libssl-dev libffi-dev python-dev
 RUN apt-get -yqq install python3-pip python3-dev
 RUN pip3 install --upgrade pip
-RUN apt-get install -y openssh-server mongodb sshpass nano virtualenv supervisor
+RUN apt-get install -y openssh-server sshpass nano virtualenv supervisor
 
 # Install required python libraries
 ADD profilers/network_resource_profiler/home/requirements.txt /requirements.txt
@@ -27,6 +28,8 @@ RUN sed -i 's/#PermitRootLogin yes/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
+
+COPY mongo3-2 /usr/bin
 
 # Prepare MongoDB
 RUN mkdir -p /mongodb/data

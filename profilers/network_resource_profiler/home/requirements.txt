@@ -2,7 +2,7 @@ pandas
 paramiko
 scp
 monotonic
-pymongo==2.4.2
+pymongo
 requests
 watchdog
 apscheduler
